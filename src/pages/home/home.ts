@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, Slides } from 'ionic-angular';
+import { NavController, Slides, ToastController } from 'ionic-angular';
 
 import * as WC from 'woocommerce-api';
 
@@ -17,7 +17,8 @@ export class HomePage {
 
   @ViewChild('productSlides') productSlides: Slides
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController,
+              public toastCtrl: ToastController) {
     
     this.page = 2;
 
@@ -28,7 +29,8 @@ export class HomePage {
     })
 
     // appel de la function d'implementation de l'Infinite Scroll
-    this.loadMoreProducts()
+    // this.loadMoreProducts()
+    this.loadMoreProducts(null)
 
     // obtenir les donnees de woocommerce store
     this.WooCommerce.getAsync("products").then((data) => { // en retour on a une Promise
@@ -49,11 +51,38 @@ export class HomePage {
    }, 3000)
   }
 
-  loadMoreProducts() {
+  loadMoreProducts(event) {
+    if (event == null) {
+      this.page = 2
+      this.moreProducts = []
+    } else {
+      this.page++
+    }
+
       // obtenir les donnees de woocommerce store de la page ? & Infinite Scroll
     this.WooCommerce.getAsync("products?page=" + this.page).then((data) => { // en retour on a une Promise
       console.log(JSON.parse(data.body))
+      // pas ajouter de nouveaux products ....
       this.moreProducts = JSON.parse(data.body).products 
+      // ... mais ajouter de nouveaux products lorsque l'utilisateur Scroll au tableau
+      this.moreProducts = this.moreProducts.concat(JSON.parse(data.body).products)  
+      
+     if (event != null) {
+       event.complete()
+     } 
+
+     // si plus de products à afficher => fin du Scroll
+     if(JSON.parse(data.body).products.length < 10) {
+       event.enable(false)
+
+       this.toastCtrl.create({
+         message: "No more products",
+         duration: 5000,
+         cssClass: "toastStyle"
+       }).present()
+     }
+
+
     }, (err) => {
       console.log(err)
     })
