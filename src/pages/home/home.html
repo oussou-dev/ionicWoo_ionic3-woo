@@ -8,8 +8,8 @@
 </ion-header>
 
 
-<ion-content padding>
-  <ion-card>
+<ion-content no-padding>
+  <ion-card no-padding>
     <ion-slides autoplay="3000" pager>
       <ion-slide *ngFor="let number of [1,2,3,4]">
         <img src="../../assets/imgs/{{number}}.jpg"/>
@@ -17,14 +17,18 @@
     </ion-slides>
   </ion-card>
   
+
+  <img style="margin-top:10px" src="../../assets/imgs/banner2.jpg" alt="">
+
   <ion-grid>
     <ion-row>
-      <ion-slides>
+      <ion-slides #productSlides>
         <ion-slide *ngFor="let product of products">
           <ion-card no-padding>
             <img [src]="product.featured_src" />
-            <h1>{{product.title}}</h1>
-            <p>{{product.short_description}}</p>
+            <h1 padding center>{{product.title}}</h1>
+            <!-- <p padding center>{{product.short_description}}</p> -->
+            <p padding center [innerHTML]="product.short_description"></p>
           </ion-card>
         </ion-slide>
       </ion-slides>
