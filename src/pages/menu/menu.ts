@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { HomePage } from '../home/home';
+import * as WC from 'woocommerce-api'
+
 
 @Component({
   selector: 'page-menu',
@@ -9,9 +11,35 @@ import { HomePage } from '../home/home';
 export class Menu {
 
   homePage: Component;
-  
+  WooCommerce: any;
+  categories: any[];
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.homePage = HomePage
+    this.categories = []
+    
+    this.WooCommerce = WC({
+        url: "http://samarth.southeastasia.cloudapp.azure.com",
+        consumerKey: "ck_a55da2f5918a380ed8565ba180fb04f4ec67f304",
+        consumerSecret: "cs_3a5776160220af80f004a6983942fc5e06de22a4"
+    })
+
+    this.WooCommerce.getAsync("products/categories").then((data) => {
+      console.log(JSON.parse(data.body).product_categories)
+
+      let temp: any[] = JSON.parse(data.body).product_categories;
+      
+      for (let i = 0; i < temp.length; i++) {
+        if (temp[i].parent == 0) {
+          this.categories.push(temp[i])
+        }
+      }
+
+
+    }, (err) => {
+      console.log(err)
+    })
+
   }
 
   ionViewDidLoad() {
