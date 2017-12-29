@@ -40,4 +40,26 @@ export class ProductsByCategoryPage {
     console.log('ionViewDidLoad ProductsByCategoryPage');
   }
 
+  loadMoreProducts(event) {
+    // incrementation de la page à chaque fois que la fonction est appelée
+    this.page++;
+
+    console.log("Getting page " + this.page);
+    this.WooCommerce.getAsync("products?filter[category]=" + this.category.slug + "&page=" + this.page).then((data) => {
+      let temp = (JSON.parse(data.body).products)
+
+      this.products = this.products.concat(JSON.parse(data.body).products)
+      console.log(this.products)
+      event.complete();
+
+      if (temp.length < 10) {
+        event.enable(false)
+      }
+    })
+
+  }
+
+
+
+
 }
