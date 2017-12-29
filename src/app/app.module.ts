@@ -1,3 +1,4 @@
+import { ProductsByCategoryPage } from './../pages/products-by-category/products-by-category';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -13,7 +14,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   declarations: [
     MyApp,
     HomePage,
-    Menu
+    Menu,
+    ProductsByCategoryPage
   ],
   imports: [
     BrowserModule,
@@ -23,7 +25,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   entryComponents: [
     MyApp,
     HomePage,
-    Menu
+    Menu,
+    ProductsByCategoryPage
   ],
   providers: [
     StatusBar,
