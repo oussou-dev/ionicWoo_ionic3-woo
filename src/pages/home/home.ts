@@ -1,8 +1,8 @@
+import { ProductDetailsPage } from './../product-details/product-details';
 import { Component, ViewChild } from '@angular/core';
 import { NavController, Slides, ToastController } from 'ionic-angular';
 
 import * as WC from 'woocommerce-api';
-
 
 @Component({
   selector: 'page-home',
@@ -60,31 +60,40 @@ export class HomePage {
     }
 
       // obtenir les donnees de woocommerce store de la page ? & Infinite Scroll
-    this.WooCommerce.getAsync("products?page=" + this.page).then((data) => { // en retour on a une Promise
-      console.log(JSON.parse(data.body))
-      // pas ajouter de nouveaux products ....
-      this.moreProducts = JSON.parse(data.body).products 
-      // ... mais ajouter de nouveaux products lorsque l'utilisateur Scroll au tableau
-      this.moreProducts = this.moreProducts.concat(JSON.parse(data.body).products)  
-      
-     if (event != null) {
-       event.complete()
-     } 
+    this.WooCommerce.getAsync("products?page=" + this.page).then(data => {
+        // en retour on a une Promise
+        console.log(JSON.parse(data.body));
+        // pas ajouter de nouveaux products ....
+        this.moreProducts = JSON.parse(data.body).products;
+        // ... mais ajouter de nouveaux products lorsque l'utilisateur Scroll au tableau
+        this.moreProducts = this.moreProducts.concat(JSON.parse(data.body).products);
 
-     // si plus de products à afficher => fin du Scroll
-     if(JSON.parse(data.body).products.length < 10) {
-       event.enable(false)
+        if (event != null) {
+          event.complete();
+        }
 
-       this.toastCtrl.create({
-         message: "No more products",
-         duration: 5000,
-         cssClass: "toastStyle"
-       }).present()
-     }
+        // si plus de products à afficher => fin du Scroll
+        if (JSON.parse(data.body).products.length < 10) {
+          event.enable(false);
 
-
-    }, (err) => {
-      console.log(err)
-    })
+          this.toastCtrl
+            .create({
+              message: "No more products",
+              duration: 5000,
+              cssClass: "toastStyle"
+            })
+            .present();
+        }
+      }, err => {
+        console.log(err);
+      });
   }
+
+  openProductPage(product) {
+    // push() adds the new page on the top of the navigation stack with the option to going back
+    this.navCtrl.push(ProductDetailsPage, {"product": product} )
+  }
+
+
+
 }
