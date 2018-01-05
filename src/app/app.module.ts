@@ -1,3 +1,4 @@
+import { CartPage } from './../pages/cart/cart';
 import { ProductDetailsPage } from './../pages/product-details/product-details';
 import { ProductsByCategoryPage } from './../pages/products-by-category/products-by-category';
 import { BrowserModule } from '@angular/platform-browser';
@@ -20,7 +21,8 @@ import { IonicStorageModule } from "@ionic/storage";
     HomePage,
     Menu,
     ProductsByCategoryPage,
-    ProductDetailsPage
+    ProductDetailsPage,
+    CartPage
   ],
   imports: [
     BrowserModule,
@@ -33,7 +35,8 @@ import { IonicStorageModule } from "@ionic/storage";
     HomePage,
     Menu,
     ProductsByCategoryPage,
-    ProductDetailsPage
+    ProductDetailsPage,
+    CartPage
   ],
   providers: [
     StatusBar,
