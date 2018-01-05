@@ -24,11 +24,11 @@
             {{cat}}
           </ion-label>
         </ion-chip>
-      </ion-card-title>
+      </ion-card-title> 
 
       <p [innerHTML]="product.description"></p>
 
-      <button ion-button icon-left block outline color="danger">
+      <button ion-button icon-left block outline color="danger" (click) = "addToCart(product)">
         <ion-icon name="basket"></ion-icon> Add to card
       </button>
 
