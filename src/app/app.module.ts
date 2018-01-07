@@ -1,3 +1,4 @@
+import { SignupPage } from './../pages/signup/signup';
 import { CartPage } from './../pages/cart/cart';
 import { ProductDetailsPage } from './../pages/product-details/product-details';
 import { ProductsByCategoryPage } from './../pages/products-by-category/products-by-category';
@@ -22,7 +23,8 @@ import { IonicStorageModule } from "@ionic/storage";
     Menu,
     ProductsByCategoryPage,
     ProductDetailsPage,
-    CartPage
+    CartPage,
+    SignupPage   
   ],
   imports: [
     BrowserModule,
@@ -36,7 +38,8 @@ import { IonicStorageModule } from "@ionic/storage";
     Menu,
     ProductsByCategoryPage,
     ProductDetailsPage,
-    CartPage
+    CartPage,
+    SignupPage
   ],
   providers: [
     StatusBar,
