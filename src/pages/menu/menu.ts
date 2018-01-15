@@ -1,3 +1,4 @@
+import { LoginPage } from './../login/login';
 import { SignupPage } from './../signup/signup';
 import { ProductsByCategoryPage } from './../products-by-category/products-by-category';
 import { Component, ViewChild } from '@angular/core';
@@ -70,7 +71,16 @@ export class Menu {
     if (pageName == "signup") {
       this.navCtrl.push(SignupPage)
     } 
+    if (pageName == "login") {
+      this.navCtrl.push(LoginPage)
+    } 
+
+
+
   }
+
+
+
 
 
 }
