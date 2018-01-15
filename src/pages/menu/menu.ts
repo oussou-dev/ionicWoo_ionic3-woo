@@ -1,3 +1,4 @@
+import { SignupPage } from './../signup/signup';
 import { ProductsByCategoryPage } from './../products-by-category/products-by-category';
 import { Component, ViewChild } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
@@ -16,7 +17,7 @@ export class Menu {
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    // this.homePage = HomePage;
+    this.homePage = HomePage;
     this.categories = [];
 
     this.WooCommerce = WC({
@@ -64,4 +65,12 @@ export class Menu {
     // this.navCtrl.setRoot(ProductsByCategoryPage, {"category": category})
     this.childNavCtrl.setRoot(ProductsByCategoryPage, {"category": category})
   };
+
+  openPage(pageName: string) {
+    if (pageName == "signup") {
+      this.navCtrl.push(SignupPage)
+    } 
+  }
+
+
 }
