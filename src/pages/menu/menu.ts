@@ -1,3 +1,5 @@
+import {CartPage} from '../cart/cart';
+import { Storage } from '@ionic/storage';
 import { LoginPage } from './../login/login';
 import { SignupPage } from './../signup/signup';
 import { ProductsByCategoryPage } from './../products-by-category/products-by-category';
@@ -5,6 +7,7 @@ import { Component, ViewChild } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import * as WC from 'woocommerce-api'
+import { ModalController } from 'ionic-angular/components/modal/modal-controller';
 
 @Component({
   selector: "page-menu",
@@ -16,10 +19,14 @@ export class Menu {
   categories: any[];
   @ViewChild('content') childNavCtrl: NavController;
 
+  loggedIn: boolean;
+  user: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage, private modalCtrl: ModalController) {
     this.homePage = HomePage;
     this.categories = [];
+    this.user = {};
 
     this.WooCommerce = WC({
       url: "http://samarth.southeastasia.cloudapp.azure.com",
@@ -58,8 +65,26 @@ export class Menu {
     );
   }
 
-  ionViewDidLoad() {
+  ionViewDid() {
     console.log("ionViewDidLoad Menu");
+  }
+
+  ionViewDidEnter(){ // is called every time the page is shown to the user and becomes the active page
+    // lire le localstorage pour voir s'il est accessible ou pas
+    this.storage.ready().then( () => {
+      this.storage.get("userLoginInfo").then((userLoginInfo) => {
+        if (userLoginInfo !== null) {
+          console.log("User logged in ...")
+          this.user = userLoginInfo.user
+          console.log(this.user)
+          this.loggedIn = true
+        } else {
+          console.log("No user found");
+          this.user = {};
+          this.loggedIn = false          
+        }
+      })
+    })
   }
 
   openCategoryPage(category) {
@@ -75,12 +100,16 @@ export class Menu {
       this.navCtrl.push(LoginPage)
     } 
 
+    if (pageName == 'logout') {
+      this.storage.remove("userLoginInfo").then(() => {
+        this.user = {};
+        this.loggedIn = false;
+      })
+    }
 
-
+    if (pageName == 'cart' ) {
+      let modal = this.modalCtrl.create(CartPage)
+      modal.present()
+    }
   }
-
-
-
-
-
 }

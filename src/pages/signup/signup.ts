@@ -118,17 +118,17 @@ export class SignupPage {
         email: this.newUser.email,
         phone: this.newUser.billing_address.phone,
       },
-      shipping_address: {
-        first_name: this.newUser.first_name,
-        last_name: this.newUser.last_name,
-        company: '',
-        address_1: this.newUser.shipping_address.address_1,
-        address_2: this.newUser.shipping_address.address_2,
-        city: this.newUser.shipping_address.city,
-        state: this.newUser.shipping_address.state,
-        postcode: this.newUser.shipping_address.postcode,
-        country: this.newUser.shipping_address.country,
-      },
+      // shipping_address: {
+      //   first_name: this.newUser.first_name,
+      //   last_name: this.newUser.last_name,
+      //   company: '',
+      //   address_1: this.newUser.shipping_address.address_1,
+      //   address_2: this.newUser.shipping_address.address_2,
+      //   city: this.newUser.shipping_address.city,
+      //   state: this.newUser.shipping_address.state,
+      //   postcode: this.newUser.shipping_address.postcode,
+      //   country: this.newUser.shipping_address.country,
+      // },
     };
 
     if (this.billing_shipping_same) {
