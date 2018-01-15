@@ -1,3 +1,4 @@
+import {HttpModule} from '@angular/http';
 import { LoginPage } from './../pages/login/login';
 import { SignupPage } from './../pages/signup/signup';
 import { CartPage } from './../pages/cart/cart';
@@ -16,7 +17,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { IonicStorageModule } from "@ionic/storage";
 
-
 @NgModule({
   declarations: [
     MyApp,
@@ -30,6 +30,7 @@ import { IonicStorageModule } from "@ionic/storage";
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot()
   ],
